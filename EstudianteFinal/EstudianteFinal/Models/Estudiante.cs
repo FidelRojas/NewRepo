@@ -9,6 +9,6 @@ namespace EstudianteFinal.Models
     {
         public int id { get; set; }
         public string name { get; set; }
-        public string career { get; set; }
+        public carrera carrera { get; set; }
     }
 }

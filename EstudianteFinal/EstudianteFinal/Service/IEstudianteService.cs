@@ -13,5 +13,7 @@ namespace EstudianteFinal.Service
         Estudiante CreateEstudiante(Estudiante newEstudiante);
         bool DeleteEstudiante(int id);
         Estudiante UptateEstudiante(int id, Estudiante newEstudiante);
+        Estudiante obtenerEstudiante(int id);
+
     }
 }

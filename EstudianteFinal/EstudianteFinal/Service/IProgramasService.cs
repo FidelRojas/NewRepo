@@ -13,5 +13,8 @@ namespace EstudianteFinal.Service
         Programa CreatePrograma(Programa newPrograma);
         bool DeletePrograma(int id);
         Programa UptatePrograma(int id, Programa newPrograma);
+        bool AsignarProgamaAComputadora(int ComputadoraId, int ProgramaId, Computadora computadora);
+        bool AgregarPrograma(Programa programa);
+        Programa obtenerPrograma(int id);
     }
 }

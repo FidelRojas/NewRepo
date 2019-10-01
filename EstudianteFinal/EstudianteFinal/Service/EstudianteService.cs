@@ -19,22 +19,23 @@ namespace EstudianteFinal.Service
                 {
                     id=1,
                     name="Fidel",
-                    career = "IngSistemas"
+                    carrera = carrera.CIVIL
                 },
                 new Estudiante()
                 {
                     id=2,
                     name ="Victor",
-                    career="IngComercial"
+                    carrera = carrera.SISTEMAS
+
                 },
                 new Estudiante()
                 {
                     id=3,
                     name="Pinto",
-                    career = "IngSistemas"
+                   carrera=carrera.QUIMICA
                 }
             };
-            allowedOrderByValues = new HashSet<string>() { "id", "name", "career" };
+            allowedOrderByValues = new HashSet<string>() { "id", "name" };
 
         }
 
@@ -93,12 +94,17 @@ namespace EstudianteFinal.Service
             {
                 case "name":
                     return estudiantes.OrderBy(a => a.name);
-                case "career":
-                    return estudiantes.OrderBy(a => a.career);
+                
 
                 default:
                     return estudiantes.OrderBy(a => a.id); ;
             }
+        }
+
+        public Estudiante obtenerEstudiante(int id)
+        {
+            return estudiantes.SingleOrDefault(x => x.id == id);
+
         }
 
         public Estudiante UptateEstudiante(int id, Estudiante newEstudiante)
@@ -106,7 +112,7 @@ namespace EstudianteFinal.Service
             if (estudiantes.Exists(s => s.id == id))
             {
                 estudiantes.Find(s => s.id == id).name = newEstudiante.name;
-                estudiantes.Find(s => s.id == id).career = newEstudiante.career;
+                estudiantes.Find(s => s.id == id).carrera = newEstudiante.carrera;
             }
             else
                 throw new MensajeError("id URL should be euqual to body");

@@ -13,5 +13,7 @@ namespace EstudianteFinal.Service
         Computadora CreateComputadora(Computadora newComputadora);
         bool DeleteComputadora(int id);
         Computadora UptateComputadora(int id, Computadora newComputadora);
+        Computadora obtenerComputadora(int id);
+        List<Programa> ObtenerProgramasDeEstudiante(Estudiante estudiante, int ComputadoraId, List<Programa> programas);
     }
 }

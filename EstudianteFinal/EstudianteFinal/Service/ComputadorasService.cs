@@ -11,7 +11,8 @@ namespace EstudianteFinal.Service
     {
         private List<Computadora> computadoras;
         private HashSet<string> allowedOrderByValues;
-        public ComputadorasService()
+
+        public ComputadorasService( )
         {
             computadoras = new List<Computadora>()
             {
@@ -89,6 +90,19 @@ namespace EstudianteFinal.Service
                 default:
                     return computadoras.OrderBy(a => a.id); ;
             }
+        }
+
+        public Computadora obtenerComputadora(int id)
+        {
+            return computadoras.SingleOrDefault(x => x.id == id);
+
+        }
+
+        public List<Programa> ObtenerProgramasDeEstudiante(Estudiante estudiante, int ComputadoraId, List<Programa> programas)
+        {
+            return programas
+                .Where(x => x.ComputadoraId == ComputadoraId && x.carrera == estudiante.carrera)
+                .ToList();
         }
 
         public Computadora UptateComputadora(int id, Computadora newComputadora)

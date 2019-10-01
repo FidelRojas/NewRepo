@@ -13,12 +13,15 @@ namespace ComputadoraFinal.Controllers
 
     public class ComputadorasController : ControllerBase
     {
-        private IComputadorasService estudianteService;
+        private IProgramasService programasService;
+        private IComputadorasService computadorasService;
+        private IEstudianteService estudianteService;
 
-
-        public ComputadorasController(IComputadorasService estudianteService)
+        public ComputadorasController(IComputadorasService computadorasService, IEstudianteService estudianteService, IProgramasService programasService)
         {
+            this.computadorasService = computadorasService;
             this.estudianteService = estudianteService;
+            this.programasService = programasService;
         }
 
         [HttpPost]
@@ -28,7 +31,7 @@ namespace ComputadoraFinal.Controllers
             {
                 return BadRequest(ModelState);
             }
-            var createStudent = estudianteService.CreateComputadora(student);
+            var createStudent = computadorasService.CreateComputadora(student);
             return Created($"/api/student/{createStudent.id}", createStudent);
            
         }
@@ -38,7 +41,7 @@ namespace ComputadoraFinal.Controllers
         {
             try
             {
-                return Ok(estudianteService.GetComputadoras(orderBy));
+                return Ok(computadorasService.GetComputadoras(orderBy));
             }
             
             catch (Exception)
@@ -53,7 +56,7 @@ namespace ComputadoraFinal.Controllers
         {
             try
             {
-                return Ok(estudianteService.GetComputadora(id));
+                return Ok(computadorasService.GetComputadora(id));
             }
            
             catch (Exception ex)
@@ -68,7 +71,7 @@ namespace ComputadoraFinal.Controllers
         {
             try
             {
-                return Ok(estudianteService.UptateComputadora(id, student));
+                return Ok(computadorasService.UptateComputadora(id, student));
             }
             catch (Exception ex)
             {
@@ -81,7 +84,7 @@ namespace ComputadoraFinal.Controllers
         {
             try
             {
-                var result = estudianteService.DeleteComputadora(id);
+                var result = computadorasService.DeleteComputadora(id);
                 if (!result)
                     return StatusCode(StatusCodes.Status500InternalServerError, "cannot delete author");
                 return Ok(result);
@@ -90,6 +93,15 @@ namespace ComputadoraFinal.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
+        }
+        [HttpGet("{Ci}/{ComputadoraId}")]
+        public ActionResult<List<Programa>> ObtenerProgramasDeEstudiante(int idEstudiante, int ComputadoraId)
+        {
+            Estudiante estudiante = estudianteService.obtenerEstudiante(idEstudiante);
+
+            var programas = programasService.GetProgramas("id").ToList();
+            List<Programa> programass = computadorasService.ObtenerProgramasDeEstudiante(estudiante, ComputadoraId, programas);
+            return programass;
         }
     }
 }
