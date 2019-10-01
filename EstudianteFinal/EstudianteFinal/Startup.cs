@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using EstudianteFinal.Service;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -26,6 +27,12 @@ namespace EstudianteFinal
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            //services.AddTransient<IEstudianteService, EstudianteService>();
+            services.AddSingleton<IEstudianteService, EstudianteService>();
+            //services.AddTransient<IComputadorasService, IComputadorasService>();
+            services.AddSingleton<IComputadorasService, ComputadorasService>();
+            services.AddSingleton<IProgramasService, ProgramasService>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
