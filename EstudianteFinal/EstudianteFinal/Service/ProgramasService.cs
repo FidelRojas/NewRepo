@@ -78,7 +78,7 @@ namespace EstudianteFinal.Service
             public IEnumerable<Programa> GetProgramas(string orderBy)
             {
                 var orderByLower = orderBy.ToLower();
-                if (!allowedOrderByValues.Contains(orderByLower))
+                if (!allowedOrderByValues.Contains(orderByLower)) 
                 {
                     throw new MensajeError($"invalid Order By value : {orderBy} the only allowed values are {string.Join(", ", allowedOrderByValues)}");
                 }
